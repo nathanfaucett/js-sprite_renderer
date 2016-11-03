@@ -1,0 +1,45 @@
+{
+  "name": "@nathanfaucett/sprite_renderer",
+  "version": "0.0.1",
+  "description": "canvas plugin",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nathanfaucett/js-sprite_renderer.git"
+  },
+  "main": "src/index.js",
+  "keywords": [
+    "sprite_renderer",
+    "sprite_renderer.js",
+    "sprite",
+    "renderer"
+  ],
+  "scripts": {
+    "example": "comn -f ./example/index.js -o ./example/index.min.js"
+  },
+  "author": "Nathan Faucett",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "devDependencies": {
+    "@nathanfaucett/scene_graph": "git@github.com:nathanfaucett/js-scene_graph.git",
+    "@nathanfaucett/sprite_component": "git@github.com:nathanfaucett/js-sprite_component.git",
+    "@nathanfaucett/camera_component": "git@github.com:nathanfaucett/js-camera_component.git",
+    "@nathanfaucett/transform_components": "git@github.com:nathanfaucett/js-transform_components.git",
+    "@nathanfaucett/shader": "git@github.com:nathanfaucett/js-shader.git",
+    "@nathanfaucett/material": "git@github.com:nathanfaucett/js-material.git",
+    "@nathanfaucett/webgl_plugin": "git@github.com:nathanfaucett/js-webgl_plugin.git",
+    "@nathanfaucett/task": "^0.0.7",
+    "@nathanfaucett/comn": "^0.0.13",
+    "gulp-jsbeautifier": "^2.0.3",
+    "gulp-jshint": "^2.0.1",
+    "jshint": "^2.9.3"
+  },
+  "dependencies": {
+    "@nathanfaucett/mat3": "^0.0.2",
+    "@nathanfaucett/mat4": "^0.0.2",
+    "@nathanfaucett/vec2": "^0.0.2",
+    "@nathanfaucett/vec4": "^0.0.2",
+    "@nathanfaucett/webgl_context": "git@github.com:nathanfaucett/js-webgl_context.git",
+    "@nathanfaucett/geometry": "git@github.com:nathanfaucett/js-geometry.git",
+    "@nathanfaucett/scene_renderer": "git@github.com:nathanfaucett/js-scene_renderer.git"
+  }
+}
