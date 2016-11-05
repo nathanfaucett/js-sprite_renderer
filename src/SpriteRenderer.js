@@ -63,10 +63,11 @@ function SpriteRenderer() {
     this._previous = null;
 
     function renderSprite(sprite) {
-        return _this.renderSprite(sprite, renderSprite.camera, renderSprite.webglPlugin);
+        return _this.renderSprite(sprite, renderSprite.viewMatrix, renderSprite.projectionMatrix, renderSprite.webglPlugin);
     }
-    renderSprite.set = function(camera, webglPlugin) {
-        renderSprite.camera = camera;
+    renderSprite.set = function(viewMatrix, projectionMatrix, webglPlugin) {
+        renderSprite.viewMatrix = viewMatrix;
+        renderSprite.projectionMatrix = projectionMatrix;
         renderSprite.webglPlugin = webglPlugin;
         return renderSprite;
     };
@@ -94,19 +95,23 @@ SpriteRendererPrototype.after = function() {
 
 SpriteRendererPrototype.render = function() {
     var sceneRenderer = this.sceneRenderer,
-        webglPlugin = sceneRenderer.getPlugin("webgl_plugin.WebGLPlugin");
-    scene = sceneRenderer.scene,
-        spriteMananger = scene.getComponentManager("sprite.Sprite"),
-        camera = scene.getComponentManager("camera.Camera").getActive();
+        webglPlugin = sceneRenderer.getPlugin("webgl_plugin.WebGLPlugin"),
 
-    spriteMananger.forEach(this._renderSprite.set(camera, webglPlugin));
+        scene = sceneRenderer.scene,
+        spriteMananger = scene.getComponentManager("sprite.Sprite"),
+
+        camera = scene.getComponentManager("camera.Camera").getActive(),
+        viewMatrix = camera.getView(),
+        projectionMatrix = camera.getProjection();
+
+    spriteMananger.forEach(this._renderSprite.set(viewMatrix, projectionMatrix, webglPlugin));
 };
 
 var size = vec2.create(1, 1),
     clipping = vec4.create(0, 0, 1, 1),
     modelView = mat4.create(),
     normalMatrix = mat3.create();
-SpriteRendererPrototype.renderSprite = function(sprite, camera, webglPlugin) {
+SpriteRendererPrototype.renderSprite = function(sprite, viewMatrix, projectionMatrix, webglPlugin) {
     var context = webglPlugin.context,
         gl = context.gl,
 
@@ -125,7 +130,7 @@ SpriteRendererPrototype.renderSprite = function(sprite, camera, webglPlugin) {
 
         indexBuffer;
 
-    transform.calculateModelView(camera.getView(), modelView);
+    transform.calculateModelView(viewMatrix, modelView);
     transform.calculateNormalMatrix(modelView, normalMatrix);
 
     context.setProgram(program);
@@ -139,7 +144,7 @@ SpriteRendererPrototype.renderSprite = function(sprite, camera, webglPlugin) {
     }
 
     webglPlugin.bindMaterial(spriteMaterial);
-    webglPlugin.bindUniforms(camera.getProjection(), modelView, normalMatrix, spriteMaterial.uniforms, glUniforms);
+    webglPlugin.bindUniforms(projectionMatrix, modelView, normalMatrix, spriteMaterial.uniforms, glUniforms);
     webglPlugin.bindAttributes(geometry.buffers.getObject(), geometry.getVertexBuffer(), program.attributes);
 
     if (spriteMaterial.wireframe !== true) {
