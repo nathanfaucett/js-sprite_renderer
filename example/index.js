@@ -61,6 +61,7 @@ while (i--) {
     spriteTransform = Transform3D.create();
     spriteTransform._localPosition[0] = (-5 + (Math.random() * 10));
     spriteTransform._localPosition[1] = (-5 + (Math.random() * 10));
+    spriteTransform._localPosition[2] = (-5 + (Math.random() * 10));
     spriteTransform._matrixNeedsUpdate = true;
     scene.addEntity(
         Entity.create().addComponent(spriteTransform, Sprite.create({
