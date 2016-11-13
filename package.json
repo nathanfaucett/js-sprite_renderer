@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@nathanfaucett/mat3": "^0.0.2",
-    "@nathanfaucett/mat4": "^0.0.2",
+    "@nathanfaucett/mat4": "^0.0.4",
     "@nathanfaucett/vec2": "^0.0.2",
     "@nathanfaucett/vec4": "^0.0.2",
     "@nathanfaucett/webgl_context": "git://github.com/nathanfaucett/js-webgl_context.git",
